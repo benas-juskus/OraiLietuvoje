@@ -6,6 +6,7 @@ module.exports = {
         try {
             const city_list = await CityModel.getAllCities();
             const regions_list = await RegionModel.getAllRegions();
+
             res.render('pages/cities', { title: 'Express', city_list: city_list, regions_list: regions_list });
         }
         catch (err) {
