@@ -1,9 +1,137 @@
 <%- include('layout/head.ejs', { title: 'Orai Lietuvoje'}) %>
 <%- include('layout/header.ejs') %>
 <%- include('layout/nav.ejs') %>
+<% let current_time = new Date(); 
+    function getWindDirection (a) {
+        if (a > 0 && a <= 22.5) {
+            return 'Šiaurės';
+        }
+        if (a > 22.5 && a <= 67.5) {
+            return 'Šiaurės rytų';
+        }
+        if (a > 67.5 && a <= 112.5) {
+            return 'Rytų';
+        }
+        if (a > 112.5 && a <= 157.5) {
+            return 'Pietryčių';
+        }
+        if (a > 157.5 && a <= 202.5) {
+            return 'Pietų';
+        }
+        if (a > 202.5 && a <= 247.5) {
+            return 'Pietvakarių';
+        }
+        if (a > 247.5 && a <= 292.5) {
+            return 'Vakarų';
+        }
+        if (a > 292.5 && a <= 337.5) {
+            return 'Šiaurės vakarų';
+        }
+        if (a > 337.5 && a <= 360) {
+            return 'Šiaurės';
+        }
+    }%>
     <main>
         <div class="container">
-
+            <div class="quick">
+                <p><%= VlnLongTerm.place.name%></p>
+                <p>
+                    <ul><% 
+                for (let temp of VlnLongTerm.forecastTimestamps) { 
+                    let forecastTime = new Date(temp.forecastTimeUtc);
+                    if (forecastTime.getDate() == current_time.getDate() && forecastTime.getHours() == current_time.getHours()) { %>
+                        <strong>Dabar:</strong>
+                        <li><%= `Oro temperatūra: ${temp.airTemperature}°C` %></li>
+                        <li><%= `Jutiminė: ${temp.feelsLikeTemperature}°C` %></li>
+                        <li><%= `Vėjas ${getWindDirection(temp.windDirection)}, ${temp.windSpeed}m/s` %></li>
+                    <%  
+                    }
+                    if (forecastTime.getDate() == current_time.getDate() + 1 && forecastTime.getHours() == 00) { %>
+                        <li><%= `Naktį: ${temp.airTemperature}°C` %></li>
+                        <% 
+                    }
+                    if (forecastTime.getDate() == current_time.getDate() + 1 && forecastTime.getHours() == 12) { %>
+                        <li><%= `Rytoj dieną: ${temp.airTemperature}°C` %></li>
+                        <%
+                    }
+                    if (forecastTime.getDate() == current_time.getDate() + 2 && forecastTime.getHours() == 00) { %>
+                        <li><%= `Rytoj naktį: ${temp.airTemperature}°C` %></li>
+                        <% 
+                    }
+                    if (forecastTime.getDate() == current_time.getDate() + 2 && forecastTime.getHours() == 12) { %>
+                        <li><%= `Poryt dieną: ${temp.airTemperature}°C` %></li>
+                        <%
+                    }
+                } %> 
+                    </ul>
+                </p>
+                </div>
+            <div class="quick">
+            <p><%= KnsLongTerm.place.name%></p>
+            <p>
+                <ul><% 
+            for (let temp of KnsLongTerm.forecastTimestamps) { 
+                let forecastTime = new Date(temp.forecastTimeUtc);
+                if (forecastTime.getDate() == current_time.getDate() && forecastTime.getHours() == current_time.getHours()) { %>
+                    <strong>Dabar:</strong>
+                    <li><%= `Oro temperatūra: ${temp.airTemperature}°C` %></li>
+                    <li><%= `Jutiminė: ${temp.feelsLikeTemperature}°C` %></li>
+                    <li><%= `Vėjas ${getWindDirection(temp.windDirection)}, ${temp.windSpeed}m/s` %></li>
+                <%  
+                }
+                if (forecastTime.getDate() == current_time.getDate() + 1 && forecastTime.getHours() == 00) { %>
+                    <li><%= `Naktį: ${temp.airTemperature}°C` %></li>
+                    <% 
+                }
+                if (forecastTime.getDate() == current_time.getDate() + 1 && forecastTime.getHours() == 12) { %>
+                    <li><%= `Rytoj dieną: ${temp.airTemperature}°C` %></li>
+                    <%
+                }
+                if (forecastTime.getDate() == current_time.getDate() + 2 && forecastTime.getHours() == 00) { %>
+                    <li><%= `Rytoj naktį: ${temp.airTemperature}°C` %></li>
+                    <% 
+                }
+                if (forecastTime.getDate() == current_time.getDate() + 2 && forecastTime.getHours() == 12) { %>
+                    <li><%= `Poryt dieną: ${temp.airTemperature}°C` %></li>
+                    <%
+                }
+            } %> 
+                </ul>
+            </p>
+            </div>
+            <div class="quick">
+            <p><%= KlpLongTerm.place.name%></p>
+            <p>
+                <ul><% 
+            for (let temp of KlpLongTerm.forecastTimestamps) { 
+                let forecastTime = new Date(temp.forecastTimeUtc);
+                if (forecastTime.getDate() == current_time.getDate() && forecastTime.getHours() == current_time.getHours()) { %>
+                    <strong>Dabar:</strong>
+                    <li><%= `Oro temperatūra: ${temp.airTemperature}°C` %></li>
+                    <li><%= `Jutiminė: ${temp.feelsLikeTemperature}°C` %></li>
+                    <li><%= `Vėjas ${getWindDirection(temp.windDirection)}, ${temp.windSpeed}m/s` %></li>
+                <%  
+                }
+                if (forecastTime.getDate() == current_time.getDate() + 1 && forecastTime.getHours() == 00) { %>
+                    <li><%= `Naktį: ${temp.airTemperature}°C` %></li>
+                    <% 
+                }
+                if (forecastTime.getDate() == current_time.getDate() + 1 && forecastTime.getHours() == 12) { %>
+                    <li><%= `Rytoj dieną: ${temp.airTemperature}°C` %></li>
+                    <%
+                }
+                if (forecastTime.getDate() == current_time.getDate() + 2 && forecastTime.getHours() == 00) { %>
+                    <li><%= `Rytoj naktį: ${temp.airTemperature}°C` %></li>
+                    <% 
+                }
+                if (forecastTime.getDate() == current_time.getDate() + 2 && forecastTime.getHours() == 12) { %>
+                    <li><%= `Poryt dieną: ${temp.airTemperature}°C` %></li>
+                    <%
+                }
+            } %> 
+                </ul>
+            </p>
+            </div>
         </div>
     </main>
 <%- include('layout/footer.ejs') %>
